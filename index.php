@@ -92,9 +92,7 @@ class Ecommerce_FS_WP_List_Table extends WP_List_Table
 	
     }
     
-    /**
- * Add columns to grid view
- */
+
 	function get_columns(){
 		$columns = array(		
 		'name' => 'Name',
@@ -113,7 +111,7 @@ class Ecommerce_FS_WP_List_Table extends WP_List_Table
 		case 'action':	
 	  return $item[ $column_name ];
 	default:
-	  return print_r( $item, true ) ; //Show the whole array for troubleshooting purposes
+	  return print_r( $item, true ) ; 
 		}
 	}
 
@@ -121,17 +119,17 @@ class Ecommerce_FS_WP_List_Table extends WP_List_Table
   $views = array();
    $current = ( !empty($_REQUEST['customvar']) ? $_REQUEST['customvar'] : 'all');
 
-   //All link
+ 
    $class = ($current == 'all' ? ' class="current"' :'');
    $all_url = remove_query_arg('customvar');
    $views['all'] = "<a href='{$all_url }' {$class} >All</a>";
 
-   //Recovered link
+
    $foo_url = add_query_arg('customvar','recovered');
    $class = ($current == 'recovered' ? ' class="current"' :'');
    $views['recovered'] = "<a href='{$foo_url}' {$class} >Recovered</a>";
 
-   //Abandon
+
    $bar_url = add_query_arg('customvar','abandon');
    $class = ($current == 'abandon' ? ' class="current"' :'');
    $views['abandon'] = "<a href='{$bar_url}' {$class} >Abandon</a>";
@@ -151,7 +149,7 @@ class Ecommerce_FS_WP_List_Table extends WP_List_Table
 	}
 
         $search = '';		
-	//Retrieve $customvar for use in query to get items.
+
 	$customvar = ( isset($_REQUEST['customvar']) ? $_REQUEST['customvar'] : '');
 	if($customvar != '') {
 		$search_custom_vars= "AND action LIKE '%" . esc_sql( $wpdb->esc_like( $customvar ) ) . "%'";
@@ -172,7 +170,6 @@ class Ecommerce_FS_WP_List_Table extends WP_List_Table
 
 	$this->items = $items;
 
-	// Set the pagination
 	$this->set_pagination_args( array(
 		'total_items' => $count,
 		'per_page'    => $per_page,
@@ -187,13 +184,13 @@ class Ecommerce_FS_WP_List_Table extends WP_List_Table
 	}
 
 	function usort_reorder( $a, $b ) {
-  // If no sort, default to title
+ 
   	$orderby = ( ! empty( $_GET['orderby'] ) ) ? $_GET['orderby'] : 'id';
-  // If no order, default to asc
+ 
   	$order = ( ! empty($_GET['order'] ) ) ? $_GET['order'] : 'desc';
-  // Determine sort order
+  
   	$result = strcmp( $a[$orderby], $b[$orderby] );
-  // Send final sort direction to usort
+  
   	return ( $order === 'asc' ) ? $result : -$result;
 	}
 
@@ -201,21 +198,6 @@ class Ecommerce_FS_WP_List_Table extends WP_List_Table
 }
 
 }
-
-
-
-
-
-/* {
-  //only for our special plugin admin page
-  if( 'ecommerce/adminpage.php' != $hook )
-    return;
-  wp_register_style('dbexplorer', plugins_url('ecommerce/main.css'));
-  wp_enqueue_style('dbexplorer');
-  wp_enqueue_script('pluginscript', plugins_url('main.js', __FILE__ ), array('jquery'));
-  
-}
-*/
 
 ?>
 
