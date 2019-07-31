@@ -87,7 +87,7 @@ class Ecommerce_FS_WP_List_Table extends WP_List_Table
 	
     function __construct(){
         parent::__construct( array(
-            'ajax'      => false        //does this table support ajax?
+            'ajax'      => false        
     ) );
 	
     }
